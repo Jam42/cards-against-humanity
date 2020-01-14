@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 		paddingVertical: 5,
 		alignItems: 'center',
-		backgroundColor: '#fff',
+		backgroundColor: '#000',
 		borderColor: '#fff',
 		borderWidth: 1,
 		borderRadius: 5,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 	buttonText: {
 		fontSize: 20,
 		fontWeight: 'bold',
-		color: '#000',
+		color: '#fff',
 	},
 	buttonSignup: {
 		fontSize: 12,
