@@ -1,44 +1,17 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import firebase from '../../config/Firebase';
+import { getQuestions, getAnswers } from '../../actions/data';
 import Draggable from './Draggable';
 import DropZone from './DropZone';
 
-export default class GameScreen extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			currentPick: null,
-			answers: [],
-			questions: [],
-			loaded: false,
-		};
-	}
-
+class GameScreen extends Component {
 	componentDidMount() {
-		this.getData();
-	}
-
-	getData() {
-		firebase
-			.database()
-			.ref('questions')
-			.on('value', snapshot => {
-				const questions = snapshot.val().filter(question => question);
-				this.setState({
-					questions,
-				});
-			});
-		firebase
-			.database()
-			.ref('answers')
-			.on('value', snapshot => {
-				const answers = snapshot.val().filter(answer => answer);
-				this.setState({
-					answers,
-				});
-			});
+		this.props.getQuestions();
+		this.props.getAnswers();
 	}
 
 	getRandom(arr, n) {
@@ -74,8 +47,9 @@ export default class GameScreen extends Component {
 			},
 		});
 
-		if (this.state.answers.length > 0 && this.state.questions.length > 0) {
-			const { questions, answers, currentPick } = this.state;
+		const { questions, answers } = this.props;
+
+		if (answers.length > 0 && questions.length > 0) {
 			const currentQuestion = this.getRandom(questions, 1)[0];
 			return (
 				<PaperProvider>
@@ -84,8 +58,8 @@ export default class GameScreen extends Component {
 							<DropZone question={currentQuestion} />
 						</View>
 						<View style={styles.row}>
-							{this.getRandom(answers, 3).map(text => {
-								return <Draggable key={text} text={text} currentPick={currentPick} />;
+							{this.getRandom(answers, 3).map(answer => {
+								return <Draggable key={answer.value} text={answer.value} />;
 							})}
 						</View>
 					</View>
@@ -100,3 +74,16 @@ export default class GameScreen extends Component {
 		}
 	}
 }
+
+const mapDispatchToProps = dispatch => {
+	return bindActionCreators({ getQuestions, getAnswers }, dispatch);
+};
+
+const mapStateToProps = state => {
+	return {
+		questions: state.data.questions,
+		answers: state.data.answers,
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);

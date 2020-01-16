@@ -15,7 +15,7 @@ const DropZone = props => {
 			fontWeight: 'bold',
 		},
 	});
-	return <Text style={styles.text}>{question}</Text>;
+	return <Text style={styles.text}>{question.value}</Text>;
 };
 
 export default DropZone;

@@ -53,4 +53,10 @@ class HomeScreen extends Component {
 	}
 }
 
-export default HomeScreen;
+const mapStateToProps = state => {
+	return {
+		user: state.user,
+	};
+};
+
+export default connect(mapStateToProps)(HomeScreen);

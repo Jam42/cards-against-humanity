@@ -1,4 +1,4 @@
-import Firebase, { db } from '../config/Firebase.js';
+import firebase, { db } from '../config/Firebase.js';
 
 export const UPDATE_EMAIL = 'UPDATE_EMAIL';
 export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
@@ -23,7 +23,7 @@ export const login = () => {
 	return async (dispatch, getState) => {
 		try {
 			const { email, password } = getState().user;
-			const response = await Firebase.auth().signInWithEmailAndPassword(email, password);
+			const response = await firebase.auth().signInWithEmailAndPassword(email, password);
 
 			dispatch(getUser(response.user.uid));
 		} catch (e) {
@@ -51,7 +51,7 @@ export const signup = () => {
 	return async (dispatch, getState) => {
 		try {
 			const { email, password } = getState().user;
-			const response = await Firebase.auth().createUserWithEmailAndPassword(email, password);
+			const response = await firebase.auth().createUserWithEmailAndPassword(email, password);
 			if (response.user.uid) {
 				const user = {
 					uid: response.user.uid,
