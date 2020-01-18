@@ -7,6 +7,7 @@ import firebase from '../../config/Firebase';
 import { getQuestions, getAnswers } from '../../actions/data';
 import Draggable from './Draggable';
 import DropZone from './DropZone';
+import Loader from './Loader';
 
 class GameScreen extends Component {
 	componentDidMount() {
@@ -66,11 +67,7 @@ class GameScreen extends Component {
 				</PaperProvider>
 			);
 		} else {
-			return (
-				<View style={[styles.container, styles.horizontal]}>
-					<ActivityIndicator size='large' color='#fff' />
-				</View>
-			);
+			return <Loader />;
 		}
 	}
 }

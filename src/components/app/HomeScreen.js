@@ -9,6 +9,14 @@ class HomeScreen extends Component {
 		this.props.navigation.navigate('Login');
 	};
 
+	componentDidMount() {
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (!user) {
+				this.handleSignout();
+			}
+		});
+	}
+
 	render() {
 		const { navigate } = this.props.navigation;
 		const styles = StyleSheet.create({
@@ -41,7 +49,7 @@ class HomeScreen extends Component {
 				<TouchableOpacity
 					style={styles.button}
 					onPress={() => {
-						navigate('Game');
+						navigate('Lobby');
 					}}>
 					<Text style={styles.buttonText}>Start Game</Text>
 				</TouchableOpacity>
@@ -53,10 +61,4 @@ class HomeScreen extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		user: state.user,
-	};
-};
-
-export default connect(mapStateToProps)(HomeScreen);
+export default HomeScreen;
