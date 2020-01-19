@@ -12,7 +12,11 @@ export const getGames = () => {
 				.get()
 				.then(function(querySnapshot) {
 					querySnapshot.forEach(function(doc) {
-						payload.push(doc.data());
+						const value = {
+							...doc.data(),
+							id: doc.id,
+						};
+						payload.push(value);
 					});
 				});
 			dispatch({ type: GET_GAMES, payload: payload });
@@ -31,6 +35,7 @@ export const createLobby = numberOfPlayers => {
 						name: user.email.substring(0, user.email.indexOf('@')),
 						members: [user.uid],
 						numberOfPlayers,
+						started: false,
 					};
 					db.collection('games')
 						.doc(user.uid)

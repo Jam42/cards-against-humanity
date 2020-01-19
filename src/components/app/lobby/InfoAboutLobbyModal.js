@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import Loader from '../Loader';
 
 const InfoAboutLobbyModal = props => {
 	const styles = StyleSheet.create({
@@ -34,6 +35,10 @@ const InfoAboutLobbyModal = props => {
 		},
 	});
 
+	const name = `${props.game.name}'s lobby`;
+	const currentNumberOfPlayers = props.game.members.length;
+	const maxNumberOfPlayers = props.game.numberOfPlayers;
+
 	return (
 		<Modal
 			animationType='fade'
@@ -41,7 +46,10 @@ const InfoAboutLobbyModal = props => {
 			visible={props.show}
 			onRequestClose={() => props.hideModal(false)}>
 			<View style={[styles.container, styles.modalContainer]}>
-				<Text style={styles.buttonText}>Info About Lobby</Text>
+				<Text style={styles.buttonText}>{name}</Text>
+				<Text style={styles.buttonText}>
+					{currentNumberOfPlayers}/{maxNumberOfPlayers} players
+				</Text>
 				<View style={styles.modalFooter}>
 					<TouchableOpacity
 						style={[styles.button, styles.modalResult]}
@@ -50,7 +58,7 @@ const InfoAboutLobbyModal = props => {
 					</TouchableOpacity>
 					<TouchableOpacity
 						style={[styles.button, styles.modalResult]}
-						onPress={() => props.hideModal(false)}>
+						onPress={() => props.joinLobby(props.game.id)}>
 						<Text style={styles.buttonText}>Join</Text>
 					</TouchableOpacity>
 				</View>

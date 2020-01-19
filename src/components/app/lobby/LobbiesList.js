@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
 
-const LobbyList = props => {
+const LobbiesList = props => {
 	const styles = StyleSheet.create({
 		scrollContainer: {
-			marginTop: 30,
+			marginTop: 70,
 		},
 		button: {
 			marginTop: 10,
@@ -28,10 +28,10 @@ const LobbyList = props => {
 		<ScrollView style={styles.scrollContainer}>
 			{props.games.map(game => (
 				<TouchableOpacity
-					key={game.name}
+					key={game.id}
 					style={styles.button}
 					onPress={() => {
-						props.toggleModal(true);
+						props.toggleModal(true, game.id);
 					}}>
 					<Text style={styles.buttonText}>{game.name}</Text>
 				</TouchableOpacity>
@@ -40,4 +40,4 @@ const LobbyList = props => {
 	);
 };
 
-export default LobbyList;
+export default LobbiesList;

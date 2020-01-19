@@ -5,6 +5,7 @@ import Login from '../components/auth/Login';
 import Signup from '../components/auth/Signup';
 import HomeScreen from '../components/app/HomeScreen';
 import GameScreen from '../components/app/GameScreen';
+import LobbiesScreen from '../components/app/lobby/LobbiesScreen';
 import LobbyScreen from '../components/app/lobby/LobbyScreen';
 
 const SwitchNavigator = createStackNavigator(
@@ -13,11 +14,12 @@ const SwitchNavigator = createStackNavigator(
 		Signup: { screen: Signup },
 		Home: { screen: HomeScreen },
 		Game: { screen: GameScreen },
+		Lobbies: { screen: LobbiesScreen },
 		Lobby: { screen: LobbyScreen },
 	},
 	{
 		initialRouteName: 'Login',
-		headerMode: 'screen',
+		headerMode: 'none',
 	}
 );
 

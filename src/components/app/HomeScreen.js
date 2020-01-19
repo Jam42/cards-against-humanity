@@ -49,7 +49,7 @@ class HomeScreen extends Component {
 				<TouchableOpacity
 					style={styles.button}
 					onPress={() => {
-						navigate('Lobby');
+						navigate('Lobbies');
 					}}>
 					<Text style={styles.buttonText}>Start Game</Text>
 				</TouchableOpacity>
