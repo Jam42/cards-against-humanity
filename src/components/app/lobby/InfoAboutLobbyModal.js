@@ -36,7 +36,7 @@ const InfoAboutLobbyModal = props => {
 	});
 
 	const name = `${props.game.name}'s lobby`;
-	const currentNumberOfPlayers = props.game.members.length;
+	const currentNumberOfPlayers = Object.keys(props.game.members).length;
 	const maxNumberOfPlayers = props.game.numberOfPlayers;
 
 	return (
@@ -48,7 +48,7 @@ const InfoAboutLobbyModal = props => {
 			<View style={[styles.container, styles.modalContainer]}>
 				<Text style={styles.buttonText}>{name}</Text>
 				<Text style={styles.buttonText}>
-					{currentNumberOfPlayers}/{maxNumberOfPlayers} players
+					{currentNumberOfPlayers} / {maxNumberOfPlayers} players
 				</Text>
 				<View style={styles.modalFooter}>
 					<TouchableOpacity

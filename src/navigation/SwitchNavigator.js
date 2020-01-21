@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../components/auth/Login';
 import Signup from '../components/auth/Signup';
 import HomeScreen from '../components/app/HomeScreen';
-import GameScreen from '../components/app/GameScreen';
+import GameScreen from '../components/app/game/GameScreen';
 import LobbiesScreen from '../components/app/lobby/LobbiesScreen';
 import LobbyScreen from '../components/app/lobby/LobbyScreen';
 

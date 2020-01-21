@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getGames, createLobby } from '../../../actions/game';
+import { getGames, createLobby, joinLobby } from '../../../actions/game';
 import firebase from '../../../config/Firebase';
 import CreateLobbyModal from './CreateLobbyModal';
 import InfoAboutLobbyModal from './InfoAboutLobbyModal';
@@ -43,7 +43,8 @@ class LobbiesScreen extends Component {
 
 	joinLobby = id => {
 		this.toggleInfoAboutLobbyModal(false, null);
-		this.props.navigation.navigate('Lobby', { id: id });
+		this.props.joinLobby(id);
+		this.props.navigation.navigate('Lobby', { game: this.props.games.find(game => game.id === id) });
 	};
 
 	render = () => {
@@ -118,7 +119,7 @@ class LobbiesScreen extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({ getGames, createLobby }, dispatch);
+	return bindActionCreators({ getGames, createLobby, joinLobby }, dispatch);
 };
 
 const mapStateToProps = state => {

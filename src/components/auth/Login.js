@@ -3,9 +3,13 @@ import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button } from 'rea
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import firebase from '../../config/Firebase';
+import Loader from '../app/Loader';
 import { updateEmail, updatePassword, login, getUser } from '../../actions/user';
 
 class Login extends React.Component {
+	state = {
+		loading: true,
+	};
 	componentDidMount = () => {
 		firebase.auth().onAuthStateChanged(user => {
 			if (user) {
@@ -13,35 +17,40 @@ class Login extends React.Component {
 				if (this.props.user != null) {
 					this.props.navigation.navigate('Home');
 				}
+			} else {
+				this.setState({ loading: false });
 			}
 		});
 	};
 
 	render() {
-		return (
-			<View style={styles.container}>
-				<TextInput
-					style={styles.inputBox}
-					value={this.props.user.email}
-					onChangeText={email => this.props.updateEmail(email)}
-					placeholder='Email'
-					autoCapitalize='none'
-				/>
-				<TextInput
-					style={styles.inputBox}
-					value={this.props.user.password}
-					onChangeText={password => this.props.updatePassword(password)}
-					placeholder='Password'
-					secureTextEntry={true}
-				/>
-				<TouchableOpacity style={styles.button} onPress={() => this.props.login()}>
-					<Text style={styles.buttonText}>Login</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Signup')}>
-					<Text style={styles.buttonText}>Sign up</Text>
-				</TouchableOpacity>
-			</View>
-		);
+		if (this.state.loading) {
+			return <Loader />;
+		} else
+			return (
+				<View style={styles.container}>
+					<TextInput
+						style={styles.inputBox}
+						value={this.props.user.email}
+						onChangeText={email => this.props.updateEmail(email)}
+						placeholder='Email'
+						autoCapitalize='none'
+					/>
+					<TextInput
+						style={styles.inputBox}
+						value={this.props.user.password}
+						onChangeText={password => this.props.updatePassword(password)}
+						placeholder='Password'
+						secureTextEntry={true}
+					/>
+					<TouchableOpacity style={styles.button} onPress={() => this.props.login()}>
+						<Text style={styles.buttonText}>Login</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Signup')}>
+						<Text style={styles.buttonText}>Sign up</Text>
+					</TouchableOpacity>
+				</View>
+			);
 	}
 }
 

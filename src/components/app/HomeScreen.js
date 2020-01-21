@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import { View, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { connect } from 'react-redux';
 import firebase from '../../config/Firebase';
 
 class HomeScreen extends Component {
-	handleSignout = () => {
+	constructor(props) {
+		super(props);
+		this.handleSignout = this.handleSignout.bind(this);
+	}
+
+	handleSignout() {
 		firebase.auth().signOut();
 		this.props.navigation.navigate('Login');
-	};
-
-	componentDidMount() {
-		firebase.auth().onAuthStateChanged(function(user) {
-			if (!user) {
-				this.handleSignout();
-			}
-		});
 	}
 
 	render() {

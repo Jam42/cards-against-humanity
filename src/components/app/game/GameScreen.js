@@ -3,11 +3,11 @@ import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import firebase from '../../config/Firebase';
-import { getQuestions, getAnswers } from '../../actions/data';
+import firebase from '../../../config/Firebase';
+import { getQuestions, getAnswers } from '../../../actions/data';
 import Draggable from './Draggable';
 import DropZone from './DropZone';
-import Loader from './Loader';
+import Loader from '../Loader';
 
 class GameScreen extends Component {
 	componentDidMount() {
